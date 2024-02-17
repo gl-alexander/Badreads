@@ -164,6 +164,9 @@ public class CommandExecutor {
     }
 
     private String printBooksResult(List<Book> books) {
+        if (books == null || books.isEmpty()) {
+            return "No books to show";
+        }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < books.size(); i++) {
             sb.append(i).append(" ").append(books.get(i));
@@ -175,6 +178,9 @@ public class CommandExecutor {
     }
 
     private String printPage(List<Book> books, int page) {
+        if (books == null || books.isEmpty() || page < 0) {
+            return "No books to show";
+        }
         StringBuilder sb = new StringBuilder();
         for (int i = page * BookRequest.BOOKS_PER_PAGE; i < (page + 1) * BookRequest.BOOKS_PER_PAGE; i++) {
             if (i > books.size() - 1) {
