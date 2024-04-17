@@ -26,15 +26,24 @@ public class SaveToFileThread implements Runnable {
 
     @Override
     public void run() {
+        try {
+            saveUsers();
+            saveBookshelves();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveUsers() {
         synchronized (users) {
             usersTableUpdater.update(gson.toJson(users));
-            users.notifyAll();
-            userBookshelf.wait();
         }
+    }
+
+    private void saveBookshelves() {
         synchronized (userBookshelf) {
             listTableUpdater.update(gson.toJson(userBookshelf));
-            userBookshelf.notifyAll();
         }
-
     }
+
 }
